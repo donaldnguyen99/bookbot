@@ -1,3 +1,5 @@
+import sys
+
 from stats import count_words
 
 def count_letters(example_string: str):
@@ -12,7 +14,10 @@ def count_letters(example_string: str):
     return counts
 
 def main():
-    file_name = "books/frankenstein.txt"
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    file_name = sys.argv[1]
     with open(file_name) as f:
         file_contents = f.read()
 
@@ -23,7 +28,7 @@ def main():
     report_words = f"{word_count} words found in the document\n\n"
 
     def report_letter(letter, count):
-        return f"The \'{letter}\' character was found {count} times\n"
+        return f"{letter}: {count}\n"
 
     letter_counts_sorted = list(letter_counts.items())
     letter_counts_sorted.sort(key=lambda ele: ele[1], reverse=True)
